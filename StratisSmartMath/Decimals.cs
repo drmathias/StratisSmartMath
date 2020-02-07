@@ -120,9 +120,23 @@ namespace StratisSmartMath
             return formattedDelimiter;
         }
 
+        /// <summary>
+        /// Subtract a decimal string from another.
+        /// </summary>
+        /// <param name="amountOne">The first decimal string amount to be subtracted against.</param>
+        /// <param name="amountTwo">The second decimal string to be subtracted from amount one.</param>
+        /// <returns>Decimal string result of amountOne - amountTwo</returns>
         public string SubtractDecimals(string amountOne, string amountTwo)
         {
-            throw new NotImplementedException();
+            // Convert each amount to it's value in stratoshis
+            ulong amountOneStratoshis = ConvertToStratoshisFromDecimal(amountOne);
+            ulong amountTwoStratoshis = ConvertToStratoshisFromDecimal(amountTwo);
+
+            // Subtract amount two from amount one
+            ulong finalAmountStratoshis = amountOneStratoshis - amountTwoStratoshis;
+
+            // Return result converted back to a decimal string
+            return ConvertToDecimalFromStratoshis(finalAmountStratoshis);
         }
     }
 }

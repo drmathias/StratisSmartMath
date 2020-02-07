@@ -90,10 +90,21 @@ namespace StratisSmartMath.Tests
         [Theory]
         [InlineData("1.00000001", "1.00000001", "2.00000002")]
         [InlineData("4.7654", "3.4732", "8.23860000")]
-        [InlineData("1.2345", "0.0732430", "1.30774300")]
+        [InlineData("1.234500", "0.0732430", "1.30774300")]
         public void CanAddTwoDecimalNumbers(string amountOne, string amountTwo, string expectedAmount)
         {
             var result = _decimals.AddDecimals(amountOne, amountTwo);
+
+            Assert.Equal(expectedAmount, result);
+        }
+
+        [Theory]
+        [InlineData("1.00000001", "1.00000001", "0.00000000")]
+        [InlineData("4.7654", "3.4732", "1.29220000")]
+        [InlineData("1.2345", "0.0732430", "1.16125700")]
+        public void CanSubtractTwoDecimalNumbers(string amountOne, string amountTwo, string expectedAmount)
+        {
+            var result = _decimals.SubtractDecimals(amountOne, amountTwo);
 
             Assert.Equal(expectedAmount, result);
         }
