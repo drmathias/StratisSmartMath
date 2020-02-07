@@ -87,60 +87,15 @@ namespace StratisSmartMath.Tests
             Assert.Equal(expectedDelimiter, formattedDelimiter);
         }
 
-        //[Theory]
-        //[InlineData("1.00000001", "1.00000001", "2.00000002")]
-        //[InlineData("4.7654", "3.4732", "8.2386")]
-        //public void CanAddTwoDecimalNumbers(string amountOne, string amountTwo, string expectedAmount)
-        //{
-        //    var formattedAmountOne = SplitAndFormatAmount(amountOne);
-        //    var formattedAmountTwo = SplitAndFormatAmount(amountTwo);
+        [Theory]
+        [InlineData("1.00000001", "1.00000001", "2.00000002")]
+        [InlineData("4.7654", "3.4732", "8.23860000")]
+        [InlineData("1.2345", "0.0732430", "1.30774300")]
+        public void CanAddTwoDecimalNumbers(string amountOne, string amountTwo, string expectedAmount)
+        {
+            var result = _decimals.AddDecimals(amountOne, amountTwo);
 
-        //    ulong totalFractional = formattedAmountOne.fractional + formattedAmountTwo.fractional;
-
-        //    ulong totalInteger = formattedAmountOne.integer + formattedAmountTwo.integer;
-
-        //    if (totalFractional >= 100_000_000)
-        //    {
-        //        totalInteger += 1;
-        //        totalFractional -= 100_000_000;
-        //    }
-
-        //    string result = $"{totalInteger}.{totalFractional}";
-
-        //    Assert.Equal(expectedAmount, result);
-
-        //}
-
-        //private AmountModel SplitAndFormatAmount(string amount)
-        //{
-        //    var delimiter = _decimals.GetDelimiterFromDecimal(amount);
-        //    var splitAmount = amount.Split(".");
-
-        //    ulong.TryParse(splitAmount[0], out ulong integer);
-        //    ulong.TryParse(splitAmount[1], out ulong fractional);
-
-        //    for (int i = 0; i < fractional.ToString().Length; i++)
-        //    {
-        //        splitAmount[1] += $"0{splitAmount[1]}";
-        //    }
-
-        //    ulong.TryParse(splitAmount[1], out ulong test);
-
-        //    return new AmountModel
-        //    {
-        //        delimiter = delimiter,
-        //        integer = integer,
-        //        fractional = test
-        //    };
-        //}
-
-        //public struct AmountModel
-        //{
-        //    public ulong integer;
-
-        //    public ulong fractional;
-
-        //    public ulong delimiter;
-        //}
+            Assert.Equal(expectedAmount, result);
+        }
     }
 }

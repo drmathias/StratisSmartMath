@@ -8,9 +8,23 @@ namespace StratisSmartMath
         private const int maxDecimalLength = 8;
         private const ulong OneFullCoinInStratoshis = 100_000_000;
 
+        /// <summary>
+        /// Add two decimal strings together.
+        /// </summary>
+        /// <param name="amountOne">The first decimal string to add.</param>
+        /// <param name="amountTwo">The second decimal string to add.</param>
+        /// <returns>Decimal string of both amounts added together.</returns>
         public string AddDecimals(string amountOne, string amountTwo)
         {
-            throw new NotImplementedException();
+            // Convert each amount to it's value in stratoshis
+            ulong amountOneStratoshis = ConvertToStratoshisFromDecimal(amountOne);
+            ulong amountTwoStratoshis = ConvertToStratoshisFromDecimal(amountTwo);
+
+            // Add the two stratoshi amounts together
+            ulong finalAmountStratoshis = amountOneStratoshis + amountTwoStratoshis;
+
+            // Return result converted back to a decimal string
+            return ConvertToDecimalFromStratoshis(finalAmountStratoshis);
         }
 
         /// <summary>
