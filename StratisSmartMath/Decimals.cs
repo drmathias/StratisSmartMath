@@ -138,5 +138,36 @@ namespace StratisSmartMath
             // Return result converted back to a decimal string
             return ConvertToDecimalFromStratoshis(finalAmountStratoshis);
         }
+
+        public ulong MultiplyDecimalsReturnStratoshis(string amountOne, string amountTwo)
+        {
+            var amountOneIndex = amountOne.IndexOf(dot);
+            var amountOneLengthMinusDecimal = amountOne.Length - 1;
+            var amountOneDecimals = amountOneLengthMinusDecimal - amountOneIndex;
+
+            amountOne = amountOne.Remove(amountOneIndex, 1);
+
+            ulong.TryParse(amountOne, out ulong amountOneNumber);
+
+            var amountTwoIndex = amountTwo.IndexOf(dot);
+            var amountTwoLengthMinusDecimal = amountTwo.Length - 1;
+            var amountTwoDecimals = amountTwoLengthMinusDecimal - amountTwoIndex;
+
+            amountTwo = amountTwo.Remove(amountTwoIndex, 1);
+
+            ulong.TryParse(amountTwo, out ulong amountTwoNumber);
+
+            var resultString = (amountOneNumber * amountTwoNumber).ToString();
+            //var startIndex = resultString.Length - (amountOneDecimals + amountTwoDecimals);
+            //resultString = resultString.Insert(
+            //    startIndex
+            //, dot.ToString());
+
+            //var result = ConvertToStratoshisFromDecimal(resultString);
+
+            ulong.TryParse(resultString, out ulong result);
+
+            return (ulong)result;
+        }
     }
 }

@@ -12,7 +12,7 @@
 
         string SubtractDecimals(string amountOne, string amountTwo);
 
-        //string MultiplyDecimals(string amountOne, string amountTwo);
+        ulong MultiplyDecimalsReturnStratoshis(string amountOne, string amountTwo);
 
         //string DivideDecimals(string amountOne, string amountTwo);
     }

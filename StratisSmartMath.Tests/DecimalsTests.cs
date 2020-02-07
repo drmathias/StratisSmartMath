@@ -14,30 +14,32 @@ namespace StratisSmartMath.Tests
 
         [Theory]
         // Minimum price 1 = .0001crs
-        [InlineData("1.0000", 10_000, 100_000_000)]
-        [InlineData("1.0000", 100_000, 1_000_000_000)]
-        [InlineData("1.0000", 1_000_000, 10_000_000_000)]
-        [InlineData("1.0000", 10_000_000, 100_000_000_000)]
-        [InlineData("1.0000", 100_000_000, 1_000_000_000_000)]
-        [InlineData("1234.5678", 23_450, 289_506_149_100)]
-        [InlineData("19484.7657", 1_000, 194_847_657_000)]
-        // 0.23 * 14.7656 = 0.3396088
-        [InlineData("0.0230", 147_656, 33_960_880)]
-        public void CanCalculate_Amount_FromString(string amount, ulong price, ulong expectedCost)
+        [InlineData("1.0000", "1.00", 100_000_000)]
+        [InlineData("1.2345", "0.0739", 9_122_955)]
+        [InlineData("9871.2543345", "23.045739", 2274903509955056955)] // 227490.3509955056955 need to do rounding -_-
+        //[InlineData("1.0000", 1_000_000, 10_000_000_000)]
+        //[InlineData("1.0000", 10_000_000, 100_000_000_000)]
+        //[InlineData("1.0000", 100_000_000, 1_000_000_000_000)]
+        //[InlineData("1234.5678", 23_450, 289_506_149_100)]
+        //[InlineData("19484.7657", 1_000, 194_847_657_000)]
+        //// 0.23 * 14.7656 = 0.3396088
+        //[InlineData("0.0230", 147_656, 33_960_880)]
+        public void CanCalculate_Amount_FromString(string amount, string price, ulong expectedCost)
         {
-            ulong delimiter = _decimals.GetDelimiterFromDecimal(amount);
+            //ulong delimiter = _decimals.GetDelimiterFromDecimal(amount);
 
-            Assert.True(amount.Length >= 6);
+            //Assert.True(amount.Length >= 6);
 
-            var splitAmount = amount.Split(".");
+            //var splitAmount = amount.Split(".");
 
-            ulong.TryParse(splitAmount[0], out ulong integer);
-            ulong.TryParse(splitAmount[1], out ulong fractional);
+            //ulong.TryParse(splitAmount[0], out ulong integer);
+            //ulong.TryParse(splitAmount[1], out ulong fractional);
 
-            ulong integerTotal = integer * delimiter * price;
-            ulong fractionalTotal = fractional * price;
+            //ulong integerTotal = integer * delimiter * price;
+            //ulong fractionalTotal = fractional * price;
 
-            var cost = integerTotal + fractionalTotal;
+            //var cost = integerTotal + fractionalTotal;
+            var cost = _decimals.MultiplyDecimalsReturnStratoshis(amount, price);
 
             Assert.Equal(expectedCost, cost);
         }
