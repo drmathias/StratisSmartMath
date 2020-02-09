@@ -139,6 +139,9 @@ namespace StratisSmartMath
             return ConvertToDecimalFromStratoshis(finalAmountStratoshis);
         }
 
+        // Todo: Refactor and cleanup this entire method.
+        // Todo: Round this decimal string to 8 decimal places before
+        // converting to ulong.
         public ulong MultiplyDecimalsReturnStratoshis(string amountOne, string amountTwo)
         {
             var amountOneIndex = amountOne.IndexOf(dot);
@@ -158,16 +161,32 @@ namespace StratisSmartMath
             ulong.TryParse(amountTwo, out ulong amountTwoNumber);
 
             var resultString = (amountOneNumber * amountTwoNumber).ToString();
-            //var startIndex = resultString.Length - (amountOneDecimals + amountTwoDecimals);
-            //resultString = resultString.Insert(
-            //    startIndex
-            //, dot.ToString());
+            var resultStringLength = resultString.Length;
+            var decimalsToCarry = amountOneDecimals + amountTwoDecimals;
+            var startIndex = resultStringLength - decimalsToCarry;
 
-            //var result = ConvertToStratoshisFromDecimal(resultString);
+            if (startIndex < 0)
+            {
+                for (int i = 0; i < decimalsToCarry - resultStringLength; i++)
+                {
+                    // Prefix the string with a zero every loop through
+                    resultString = $"0{resultString}";
+                }
+            }
 
-            ulong.TryParse(resultString, out ulong result);
+            startIndex = resultString.Length - decimalsToCarry;
 
-            return (ulong)result;
+            resultString = resultString.Insert(startIndex, dot.ToString());
+
+            // Cut extra decimals off past 8
+            var roundingPoint = resultString.Length - (decimalsToCarry - maxDecimalLength);
+            var test = resultString.Remove(roundingPoint);
+
+            // Need to round
+
+            var result = ConvertToStratoshisFromDecimal(test);
+
+            return result;
         }
     }
 }
