@@ -12,13 +12,13 @@
         /// <param name="amountOne">The first decimal string to add.</param>
         /// <param name="amountTwo">The second decimal string to add.</param>
         /// <returns>Decimal string of both amounts added together.</returns>
-        public EquationResult AddDecimals(string amountOne, string amountTwo)
+        public EquationResult Add(string amountOne, string amountTwo)
         {
-            ulong amountOneStratoshis = ConvertToStratoshis(amountOne);
-            ulong amountTwoStratoshis = ConvertToStratoshis(amountTwo);
+            ulong amountOneStratoshis = Convert(amountOne);
+            ulong amountTwoStratoshis = Convert(amountTwo);
 
             ulong finalAmountStratoshis = amountOneStratoshis + amountTwoStratoshis;
-            string finalAmountDecimal = ConvertToDecimal(finalAmountStratoshis);
+            string finalAmountDecimal = Convert(finalAmountStratoshis);
 
             return new EquationResult(finalAmountDecimal, finalAmountStratoshis);
 
@@ -29,7 +29,7 @@
         /// </summary>
         /// <param name="amount">Amount in stratoshis to convert to a decimal string.</param>
         /// <returns>The a decimal string equal to the amount of stratoshis provided.</returns>
-        public string ConvertToDecimal(ulong amount)
+        public string Convert(ulong amount)
         {
             string amountString = amount.ToString();
 
@@ -51,7 +51,7 @@
         /// </summary>
         /// <param name="amount">Amount in string decimal format to convert to stratoshis.</param>
         /// <returns>Stratoshi amount equal to the provided decimal string.</returns>
-        public ulong ConvertToStratoshis(string amount)
+        public ulong Convert(string amount)
         {
             var set = new DecimalSet(amount);
 
@@ -68,23 +68,16 @@
         /// will return a delimiter of 100_000. Where 123 * 100_000 would equal 12_300_000.</returns>
         public ulong GetDelimiterFromDecimal(string amount)
         {
-            // The beginning of the delmiter string we'll be adjusting
             string delimiterString = "1";
 
-            // Todo: Add validations and checks that there is a "." in the first place
             string[] splitAmount = amount.Split(dot);
             int fractionalLength = splitAmount[1].Length;
 
-            // Loop through and append the necessary amount of 0's to the delimiter string.
-            // Begin with the length of the fractional. (e.g. If fractional = 12345, length = 5
-            // as long as 5 < 8 append necessary 0's to the delimiter string, results in = 1_000.
-            // 12_345 * 1_000 = 12_345_000 the correct value in stratoshis)
             for (int i = fractionalLength; i < maxDecimalLength; i++)
             {
                 delimiterString = $"{delimiterString}0";
             }
 
-            // Parse the delimter string into a ulong
             ulong.TryParse(delimiterString, out ulong formattedDelimiter);
 
             return formattedDelimiter;
@@ -96,13 +89,13 @@
         /// <param name="amountOne">The first decimal string amount to be subtracted against.</param>
         /// <param name="amountTwo">The second decimal string to be subtracted from amount one.</param>
         /// <returns>Decimal string result of amountOne - amountTwo</returns>
-        public EquationResult SubtractDecimals(string amountOne, string amountTwo)
+        public EquationResult Subtract(string amountOne, string amountTwo)
         {
-            ulong amountOneStratoshis = ConvertToStratoshis(amountOne);
-            ulong amountTwoStratoshis = ConvertToStratoshis(amountTwo);
+            ulong amountOneStratoshis = Convert(amountOne);
+            ulong amountTwoStratoshis = Convert(amountTwo);
 
             ulong finalAmountStratoshis = amountOneStratoshis - amountTwoStratoshis;
-            string finalAmountDecimal = ConvertToDecimal(finalAmountStratoshis);
+            string finalAmountDecimal = Convert(finalAmountStratoshis);
 
             return new EquationResult(finalAmountDecimal, finalAmountStratoshis);
         }
@@ -113,7 +106,7 @@
         /// <param name="amount">The first decimal to be multiplied.</param>
         /// <param name="amountTwo">The second decimal to be multiplied.</param>
         /// <returns>EquationResult model with decimal and satoshi solution values.</returns>
-        public EquationResult MultiplyDecimals(string amount, string amountTwo)
+        public EquationResult Multiply(string amount, string amountTwo)
         {
             var amountSet = new DecimalSet(amount);
             var amountTwoSet = new DecimalSet(amountTwo);
@@ -124,7 +117,7 @@
             ulong fractionalAmount = (amountSet.Fractional * amountTwoSet.Fractional) / OneFullCoinInStratoshis;
 
             var stratoshiValue = fullInt + amountMath + amountTwoMath + fractionalAmount;
-            var decimalValue = ConvertToDecimal(stratoshiValue);
+            var decimalValue = Convert(stratoshiValue);
 
             return new EquationResult(decimalValue, stratoshiValue);
         }

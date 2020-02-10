@@ -4,15 +4,15 @@
     {
         ulong GetDelimiterFromDecimal(string amount);
 
-        string ConvertToDecimal(ulong amount);
+        string Convert(ulong amount);
 
-        ulong ConvertToStratoshis(string amount);
+        ulong Convert(string amount);
 
-        EquationResult AddDecimals(string amountOne, string amountTwo);
+        EquationResult Add(string amountOne, string amountTwo);
 
-        EquationResult SubtractDecimals(string amountOne, string amountTwo);
+        EquationResult Subtract(string amountOne, string amountTwo);
 
-        EquationResult MultiplyDecimals(string amountOne, string amountTwo);
+        EquationResult Multiply(string amountOne, string amountTwo);
 
 
         //string DivideDecimals(string amountOne, string amountTwo);

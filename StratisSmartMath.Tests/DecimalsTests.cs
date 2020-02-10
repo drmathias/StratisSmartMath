@@ -20,7 +20,7 @@ namespace StratisSmartMath.Tests
         [InlineData("200.01234567", "14.12345678", 282_486_571_953)]
         public void MultiplyDecimals(string amountOne, string amountTwo, ulong expectedCost)
         {
-            var cost = _decimals.MultiplyDecimals(amountOne, amountTwo);
+            var cost = _decimals.Multiply(amountOne, amountTwo);
 
             Assert.Equal(expectedCost, cost.StratoshiValue);
         }
@@ -37,7 +37,7 @@ namespace StratisSmartMath.Tests
         [InlineData("1.1", 110_000_000)]
         public void Convert_ToStratoshis_FromDecimal(string amount, ulong expectedCost)
         {
-            var cost = _decimals.ConvertToStratoshis(amount);
+            var cost = _decimals.Convert(amount);
 
             Assert.Equal(expectedCost, cost);
         }
@@ -49,7 +49,7 @@ namespace StratisSmartMath.Tests
         [InlineData(987_654_321, "9.87654321")]
         public void Convert_ToDecimal_FromStratoshis(ulong amount, string expectedCost)
         {
-            var cost = _decimals.ConvertToDecimal(amount);
+            var cost = _decimals.Convert(amount);
 
             Assert.Equal(expectedCost, cost);
         }
@@ -76,7 +76,7 @@ namespace StratisSmartMath.Tests
         [InlineData("1.234500", "0.0732430", "1.30774300")]
         public void CanAddTwoDecimalNumbers(string amountOne, string amountTwo, string expectedAmount)
         {
-            var result = _decimals.AddDecimals(amountOne, amountTwo);
+            var result = _decimals.Add(amountOne, amountTwo);
 
             Assert.Equal(expectedAmount, result.DecimalValue);
         }
@@ -87,7 +87,7 @@ namespace StratisSmartMath.Tests
         [InlineData("1.2345", "0.0732430", "1.16125700")]
         public void CanSubtractTwoDecimalNumbers(string amountOne, string amountTwo, string expectedAmount)
         {
-            var result = _decimals.SubtractDecimals(amountOne, amountTwo);
+            var result = _decimals.Subtract(amountOne, amountTwo);
 
             Assert.Equal(expectedAmount, result.DecimalValue);
         }
