@@ -13,35 +13,16 @@ namespace StratisSmartMath.Tests
         }
 
         [Theory]
-        // Minimum price 1 = .0001crs
         [InlineData("1.0000", "1.00", 100_000_000)]
         [InlineData("1.2345", "0.0739", 9_122_955)]
-        [InlineData("9871.2543345", "23.045739", 2274903509955056955)] // 227490.3509955056955 need to do rounding -_-
         [InlineData("1.00", "0.01", 1_000_000)]
-        //[InlineData("1.0000", 10_000_000, 100_000_000_000)]
-        //[InlineData("1.0000", 100_000_000, 1_000_000_000_000)]
-        //[InlineData("1234.5678", 23_450, 289_506_149_100)]
-        //[InlineData("19484.7657", 1_000, 194_847_657_000)]
-        //// 0.23 * 14.7656 = 0.3396088
-        //[InlineData("0.0230", 147_656, 33_960_880)]
-        public void CanCalculate_Amount_FromString(string amount, string price, ulong expectedCost)
+        [InlineData("109873.1239", "0.0887", 974_574_608_993)]
+        [InlineData("200.01234567", "14.12345678", 282_486_571_953)]
+        public void MultiplyDecimals(string amountOne, string amountTwo, ulong expectedCost)
         {
-            //ulong delimiter = _decimals.GetDelimiterFromDecimal(amount);
+            var cost = _decimals.MultiplyDecimals(amountOne, amountTwo);
 
-            //Assert.True(amount.Length >= 6);
-
-            //var splitAmount = amount.Split(".");
-
-            //ulong.TryParse(splitAmount[0], out ulong integer);
-            //ulong.TryParse(splitAmount[1], out ulong fractional);
-
-            //ulong integerTotal = integer * delimiter * price;
-            //ulong fractionalTotal = fractional * price;
-
-            //var cost = integerTotal + fractionalTotal;
-            var cost = _decimals.MultiplyDecimalsReturnStratoshis(amount, price);
-
-            Assert.Equal(expectedCost, cost);
+            Assert.Equal(expectedCost, cost.StratoshiValue);
         }
 
         [Theory]
@@ -56,7 +37,7 @@ namespace StratisSmartMath.Tests
         [InlineData("1.1", 110_000_000)]
         public void Convert_ToStratoshis_FromDecimal(string amount, ulong expectedCost)
         {
-            var cost = _decimals.ConvertToStratoshisFromDecimal(amount);
+            var cost = _decimals.ConvertToStratoshis(amount);
 
             Assert.Equal(expectedCost, cost);
         }
@@ -68,7 +49,7 @@ namespace StratisSmartMath.Tests
         [InlineData(987_654_321, "9.87654321")]
         public void Convert_ToDecimal_FromStratoshis(ulong amount, string expectedCost)
         {
-            var cost = _decimals.ConvertToDecimalFromStratoshis(amount);
+            var cost = _decimals.ConvertToDecimal(amount);
 
             Assert.Equal(expectedCost, cost);
         }
@@ -97,7 +78,7 @@ namespace StratisSmartMath.Tests
         {
             var result = _decimals.AddDecimals(amountOne, amountTwo);
 
-            Assert.Equal(expectedAmount, result);
+            Assert.Equal(expectedAmount, result.DecimalValue);
         }
 
         [Theory]
@@ -108,7 +89,7 @@ namespace StratisSmartMath.Tests
         {
             var result = _decimals.SubtractDecimals(amountOne, amountTwo);
 
-            Assert.Equal(expectedAmount, result);
+            Assert.Equal(expectedAmount, result.DecimalValue);
         }
     }
 }

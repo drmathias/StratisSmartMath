@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace StratisSmartMath
+﻿namespace StratisSmartMath
 {
     public class Decimals : IDecimals
     {
@@ -14,17 +12,16 @@ namespace StratisSmartMath
         /// <param name="amountOne">The first decimal string to add.</param>
         /// <param name="amountTwo">The second decimal string to add.</param>
         /// <returns>Decimal string of both amounts added together.</returns>
-        public string AddDecimals(string amountOne, string amountTwo)
+        public EquationResult AddDecimals(string amountOne, string amountTwo)
         {
-            // Convert each amount to it's value in stratoshis
-            ulong amountOneStratoshis = ConvertToStratoshisFromDecimal(amountOne);
-            ulong amountTwoStratoshis = ConvertToStratoshisFromDecimal(amountTwo);
+            ulong amountOneStratoshis = ConvertToStratoshis(amountOne);
+            ulong amountTwoStratoshis = ConvertToStratoshis(amountTwo);
 
-            // Add the two stratoshi amounts together
             ulong finalAmountStratoshis = amountOneStratoshis + amountTwoStratoshis;
+            string finalAmountDecimal = ConvertToDecimal(finalAmountStratoshis);
 
-            // Return result converted back to a decimal string
-            return ConvertToDecimalFromStratoshis(finalAmountStratoshis);
+            return new EquationResult(finalAmountDecimal, finalAmountStratoshis);
+
         }
 
         /// <summary>
@@ -32,31 +29,20 @@ namespace StratisSmartMath
         /// </summary>
         /// <param name="amount">Amount in stratoshis to convert to a decimal string.</param>
         /// <returns>The a decimal string equal to the amount of stratoshis provided.</returns>
-        public string ConvertToDecimalFromStratoshis(ulong amount)
+        public string ConvertToDecimal(ulong amount)
         {
             string amountString = amount.ToString();
-            // Set a reference to the amountStringLength so it does not get overwritten
-            // (e.g. Without this reference setting amountString to a new value adjusts it's length
-            // if amountString.Length were used.)
-            int amountStringLength = amountString.Length;
 
-            // Value is over 1 full number, just insert a decimal point where necessary.
-            // Todo: Evaluate here if it would be better to compare amount to OneFullCoinInStratoshis
-            if (amountStringLength > 8)
+            if (amountString.Length > maxDecimalLength)
             {
-                return amountString.Insert(amountStringLength - maxDecimalLength, ".");
+                return amountString.Insert(amountString.Length - maxDecimalLength, ".");
             }
 
-            // Loop through and prefix the amount string with zeros.
-            // (e.g. If amount is 10_000_000 (7 length) would be 8 - 7, would loop once.
-            // Setting the amountString value to "010000000".
-            for (int i = 0; i < maxDecimalLength - amountStringLength; i++)
+            while (amountString.Length < maxDecimalLength)
             {
-                // Prefix the string with a zero every loop through
                 amountString = $"0{amountString}";
             }
 
-            // Add the leading zero and decimal point (e.g. 0.010000000)
             return $"0.{amountString}";
         }
 
@@ -65,29 +51,13 @@ namespace StratisSmartMath
         /// </summary>
         /// <param name="amount">Amount in string decimal format to convert to stratoshis.</param>
         /// <returns>Stratoshi amount equal to the provided decimal string.</returns>
-        public ulong ConvertToStratoshisFromDecimal(string amount)
+        public ulong ConvertToStratoshis(string amount)
         {
-            // Get the delimiter value based on the provided string decimal amount.
-            ulong delimiter = GetDelimiterFromDecimal(amount);
+            var set = new DecimalSet(amount);
 
-            // Split amount on the ".".
-            // Todo: Add validations and checks that there is a "." in the first place
-            string[] splitAmount = amount.Split(dot);
+            ulong integerAmount = set.Integer * OneFullCoinInStratoshis;
 
-            // Parse the amount integer and fractional to a ulong.
-            ulong.TryParse(splitAmount[0], out ulong integer);
-            ulong.TryParse(splitAmount[1], out ulong fractional);
-
-            // Multiply the full integer amount by 100_000_000 stratoshis
-            // (e.g. 2 * 100_000_000 = 200_000_000)
-            ulong integerAmount = integer * OneFullCoinInStratoshis;
-
-            // Multiple the fractional by the delimiter providing the accurate stratoshi amount
-            // (e.g. .12304 = 12_304 x 100 = 12_304_000 stratoshis
-            ulong fractionalAmount = fractional * delimiter;
-
-            // Add the integer and fractional stratoshi amounts to get result
-            return integerAmount + fractionalAmount;
+            return integerAmount + set.Fractional;
         }
 
         /// <summary>
@@ -109,7 +79,7 @@ namespace StratisSmartMath
             // Begin with the length of the fractional. (e.g. If fractional = 12345, length = 5
             // as long as 5 < 8 append necessary 0's to the delimiter string, results in = 1_000.
             // 12_345 * 1_000 = 12_345_000 the correct value in stratoshis)
-            for (int i = fractionalLength; i < 8; i++)
+            for (int i = fractionalLength; i < maxDecimalLength; i++)
             {
                 delimiterString = $"{delimiterString}0";
             }
@@ -126,67 +96,37 @@ namespace StratisSmartMath
         /// <param name="amountOne">The first decimal string amount to be subtracted against.</param>
         /// <param name="amountTwo">The second decimal string to be subtracted from amount one.</param>
         /// <returns>Decimal string result of amountOne - amountTwo</returns>
-        public string SubtractDecimals(string amountOne, string amountTwo)
+        public EquationResult SubtractDecimals(string amountOne, string amountTwo)
         {
-            // Convert each amount to it's value in stratoshis
-            ulong amountOneStratoshis = ConvertToStratoshisFromDecimal(amountOne);
-            ulong amountTwoStratoshis = ConvertToStratoshisFromDecimal(amountTwo);
+            ulong amountOneStratoshis = ConvertToStratoshis(amountOne);
+            ulong amountTwoStratoshis = ConvertToStratoshis(amountTwo);
 
-            // Subtract amount two from amount one
             ulong finalAmountStratoshis = amountOneStratoshis - amountTwoStratoshis;
+            string finalAmountDecimal = ConvertToDecimal(finalAmountStratoshis);
 
-            // Return result converted back to a decimal string
-            return ConvertToDecimalFromStratoshis(finalAmountStratoshis);
+            return new EquationResult(finalAmountDecimal, finalAmountStratoshis);
         }
 
-        // Todo: Refactor and cleanup this entire method.
-        // Todo: Round this decimal string to 8 decimal places before
-        // converting to ulong.
-        public ulong MultiplyDecimalsReturnStratoshis(string amountOne, string amountTwo)
+        /// <summary>
+        /// Multiply two decimal strings and return the value.
+        /// </summary>
+        /// <param name="amount">The first decimal to be multiplied.</param>
+        /// <param name="amountTwo">The second decimal to be multiplied.</param>
+        /// <returns>EquationResult model with decimal and satoshi solution values.</returns>
+        public EquationResult MultiplyDecimals(string amount, string amountTwo)
         {
-            var amountOneIndex = amountOne.IndexOf(dot);
-            var amountOneLengthMinusDecimal = amountOne.Length - 1;
-            var amountOneDecimals = amountOneLengthMinusDecimal - amountOneIndex;
+            var amountSet = new DecimalSet(amount);
+            var amountTwoSet = new DecimalSet(amountTwo);
 
-            amountOne = amountOne.Remove(amountOneIndex, 1);
+            ulong fullInt = amountSet.Integer * amountTwoSet.Integer * OneFullCoinInStratoshis;
+            ulong amountMath = amountSet.Integer * amountTwoSet.Fractional;
+            ulong amountTwoMath = amountTwoSet.Integer * amountSet.Fractional;
+            ulong fractionalAmount = (amountSet.Fractional * amountTwoSet.Fractional) / OneFullCoinInStratoshis;
 
-            ulong.TryParse(amountOne, out ulong amountOneNumber);
+            var stratoshiValue = fullInt + amountMath + amountTwoMath + fractionalAmount;
+            var decimalValue = ConvertToDecimal(stratoshiValue);
 
-            var amountTwoIndex = amountTwo.IndexOf(dot);
-            var amountTwoLengthMinusDecimal = amountTwo.Length - 1;
-            var amountTwoDecimals = amountTwoLengthMinusDecimal - amountTwoIndex;
-
-            amountTwo = amountTwo.Remove(amountTwoIndex, 1);
-
-            ulong.TryParse(amountTwo, out ulong amountTwoNumber);
-
-            var resultString = (amountOneNumber * amountTwoNumber).ToString();
-            var resultStringLength = resultString.Length;
-            var decimalsToCarry = amountOneDecimals + amountTwoDecimals;
-            var startIndex = resultStringLength - decimalsToCarry;
-
-            if (startIndex < 0)
-            {
-                for (int i = 0; i < decimalsToCarry - resultStringLength; i++)
-                {
-                    // Prefix the string with a zero every loop through
-                    resultString = $"0{resultString}";
-                }
-            }
-
-            startIndex = resultString.Length - decimalsToCarry;
-
-            resultString = resultString.Insert(startIndex, dot.ToString());
-
-            // Cut extra decimals off past 8
-            var roundingPoint = resultString.Length - (decimalsToCarry - maxDecimalLength);
-            var test = resultString.Remove(roundingPoint);
-
-            // Need to round
-
-            var result = ConvertToStratoshisFromDecimal(test);
-
-            return result;
+            return new EquationResult(decimalValue, stratoshiValue);
         }
     }
 }
