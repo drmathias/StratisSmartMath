@@ -1,7 +1,7 @@
 ﻿namespace StratisSmartMath
 {
     /// <summary>
-    /// CONCEPT - Represents a single token
+    /// Represents a single token
     /// </summary>
     public struct Strat
     {
@@ -94,12 +94,16 @@
             return ulong.Parse(value.PadRight(_maxDecimials, '0'));
         }
 
+        /// <summary>
+        /// Convert to <see cref="Stratoshi"/> units
+        /// </summary>
+        /// <returns><see cref="Stratoshi"/> representation</returns>
         public Stratoshi ToStratoshis() => _value;
 
         /// <summary>
         /// Returns the token value as a string, in the format x.xxxxxxxx
         /// </summary>
-        /// <returns>The string representation</returns>
+        /// <returns>String representation</returns>
         public override string ToString()
         {
             var paddedValue = _value.ToString().PadLeft(_maxDecimials + 1, '0');

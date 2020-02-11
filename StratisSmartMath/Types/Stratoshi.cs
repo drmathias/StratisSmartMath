@@ -1,7 +1,7 @@
 ﻿namespace StratisSmartMath
 {
     /// <summary>
-    /// CONCEPT - Represents a one-hundred-millionth of a token
+    /// Represents a one-hundred-millionth of a token
     /// </summary>
     public struct Stratoshi
     {
@@ -27,44 +27,6 @@
         public static Stratoshi operator *(Stratoshi s1, uint multiplier) => new Stratoshi(s1._amount * multiplier);
 
         public static Stratoshi operator *(Stratoshi s1, ulong multiplier) => new Stratoshi(s1._amount * multiplier);
-
-        public static Stratoshi operator *(Stratoshi s1, string multipler)
-        {
-            ulong integerPart = 0;
-            ulong fractionalPart = 0;
-            ulong divisor = 1;
-            if (!multipler.Contains("."))
-            {
-                integerPart = ulong.Parse(multipler);
-            }
-            else if (multipler.StartsWith("."))
-            {
-                var fractionalPartString = multipler.Substring(1).TrimEnd('0');
-                var delimiter = fractionalPartString.Length;
-                for (var x = 0; x < delimiter; x++)
-                {
-                    divisor *= 10;
-                }
-
-                fractionalPart = ulong.Parse(fractionalPartString);
-            }
-            else
-            {
-                var parts = multipler.Split('.');
-                integerPart = ulong.Parse(parts[0]);
-                var fractionalPartString = parts[1].TrimEnd('0');
-                var delimiter = fractionalPartString.Length;
-                for (var x = 0; x < delimiter; x++)
-                {
-                    divisor *= 10;
-                }
-
-                fractionalPart = ulong.Parse(fractionalPartString);
-            }
-
-            // TODO: what if division results in a decimal?
-            return s1 * integerPart + new Stratoshi(s1._amount * fractionalPart / divisor);
-        }
 
         public static explicit operator ulong(Stratoshi value) => value._amount;
 
@@ -96,6 +58,10 @@
 
         public static bool operator <=(Stratoshi s1, Strat s2) => s1._amount <= s2.ToStratoshis();
 
+        /// <summary>
+        /// Convert to <see cref="Strat"/> units
+        /// </summary>
+        /// <returns><see cref="Strat"/> representation</returns>
         public Strat ToStrats() => new Strat(this);
 
         /// <inheritdoc/>

@@ -2,7 +2,7 @@
 
 namespace StratisSmartMath.Tests
 {
-    public class StratTests
+    public class MoneyTests
     {
         [Theory]
         [InlineData(0, "0.00000000")]
@@ -49,17 +49,12 @@ namespace StratisSmartMath.Tests
         }
 
         [Theory]
-        [InlineData(0, "10", 0)]
-        [InlineData(10, "10", 100)]
-        [InlineData(10, "1", 10)]
-        [InlineData(500, "0.5", 250)]
-        [InlineData(500, ".5", 250)]
-        [InlineData(1000, ".505", 505)]
-        [InlineData(1000, ".5025", 503)]
-        public void Stratoshi_Multiply(ulong amount, string multiplier, ulong expected)
+        [InlineData(10, 0, 0)]
+        [InlineData(10, 10, 100)]
+        public void Stratoshi_Multiply(ulong a, ulong b, ulong expected)
         {
-            Stratoshi stratoshis = amount;
-            Assert.Equal(expected, stratoshis * multiplier);
+            Stratoshi s1 = a;
+            Assert.Equal(expected, s1 * b);
         }
     }
 }

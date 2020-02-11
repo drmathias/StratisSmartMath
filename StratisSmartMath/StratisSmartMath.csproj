@@ -3,18 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Arithmetic\" />
-    <Folder Include="Common\" />
-    <Folder Include="Comparison\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Decimals.cs" />
-    <Compile Remove="IDecimals.cs" />
-    <Compile Remove="Models\EquationResult.cs" />
-  </ItemGroup>
+  
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
