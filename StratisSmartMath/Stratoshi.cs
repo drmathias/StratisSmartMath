@@ -72,11 +72,50 @@
 
         public static implicit operator Stratoshi(ulong value) => new Stratoshi(value);
 
+        public static bool operator ==(Stratoshi s1, Stratoshi s2) => s1._amount == s2._amount;
+
+        public static bool operator !=(Stratoshi s1, Stratoshi s2) => s1._amount != s2._amount;
+
+        public static bool operator >(Stratoshi s1, Stratoshi s2) => s1._amount > s2._amount;
+
+        public static bool operator <(Stratoshi s1, Stratoshi s2) => s1._amount < s2._amount;
+
+        public static bool operator >=(Stratoshi s1, Stratoshi s2) => s1._amount >= s2._amount;
+
+        public static bool operator <=(Stratoshi s1, Stratoshi s2) => s1._amount <= s2._amount;
+
+        public static bool operator ==(Stratoshi s1, Strat s2) => s1._amount == s2.ToStratoshis();
+
+        public static bool operator !=(Stratoshi s1, Strat s2) => s1._amount != s2.ToStratoshis();
+
+        public static bool operator >(Stratoshi s1, Strat s2) => s1._amount > s2.ToStratoshis();
+
+        public static bool operator <(Stratoshi s1, Strat s2) => s1._amount < s2.ToStratoshis();
+
+        public static bool operator >=(Stratoshi s1, Strat s2) => s1._amount >= s2.ToStratoshis();
+
+        public static bool operator <=(Stratoshi s1, Strat s2) => s1._amount <= s2.ToStratoshis();
+
         public Strat ToStrats() => new Strat(this);
 
         public override string ToString()
         {
             return _amount.ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is ulong || obj is Stratoshi || obj is Strat)
+            {
+                return _amount == ((Stratoshi)obj)._amount;
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return 68920802 + _amount.GetHashCode();
         }
     }
 }

@@ -52,4 +52,7 @@ var greaterThan = s11 > s12;
 var greaterEqualThan = s11 >= s12;
 var lessThan = s11 < s12;
 var lessEqualThan = s11 <= s12;
+var equalTo = s11 == s12;
+var notEqualTo = s11 != s12;
+var equals = s11.Equals(s12);
 ```

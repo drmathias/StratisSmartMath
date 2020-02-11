@@ -30,6 +30,30 @@
 
         public static explicit operator Strat(Stratoshi value) => value.ToStrats();
 
+        public static bool operator ==(Strat s1, Strat s2) => s1._value == s2._value;
+
+        public static bool operator !=(Strat s1, Strat s2) => s1._value != s2._value;
+
+        public static bool operator >(Strat s1, Strat s2) => s1._value > s2._value;
+
+        public static bool operator <(Strat s1, Strat s2) => s1._value < s2._value;
+
+        public static bool operator >=(Strat s1, Strat s2) => s1._value >= s2._value;
+
+        public static bool operator <=(Strat s1, Strat s2) => s1._value <= s2._value;
+
+        public static bool operator ==(Strat s1, Stratoshi s2) => s1._value == s2;
+
+        public static bool operator !=(Strat s1, Stratoshi s2) => s1._value != s2;
+
+        public static bool operator >(Strat s1, Stratoshi s2) => s1._value > s2;
+
+        public static bool operator <(Strat s1, Stratoshi s2) => s1._value < s2;
+
+        public static bool operator >=(Strat s1, Stratoshi s2) => s1._value >= s2;
+
+        public static bool operator <=(Strat s1, Stratoshi s2) => s1._value <= s2;
+
         public Stratoshi ToStratoshis() => _value;
 
         public static Strat Parse(string value)
@@ -68,6 +92,21 @@
         private static Stratoshi ParseFractionalDigits(string value)
         {
             return ulong.Parse(value.PadRight(MAX_DP, '0'));
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is ulong || obj is Stratoshi || obj is Strat)
+            {
+                return _value.Equals((Stratoshi)obj);
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return -1939223833 + _value.GetHashCode();
         }
     }
 }
