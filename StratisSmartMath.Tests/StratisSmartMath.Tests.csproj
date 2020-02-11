@@ -20,5 +20,6 @@
     <Folder Include="Arithmetic\" />
     <Folder Include="Common\" />
     <Folder Include="Models\" />
+    <Folder Include="Comparison\" />
   </ItemGroup>
 </Project>
