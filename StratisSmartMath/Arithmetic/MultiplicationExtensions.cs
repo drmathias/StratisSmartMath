@@ -13,6 +13,35 @@
             var amountSet = new DecimalSet(amount);
             var amountTwoSet = new DecimalSet(amountTwo);
 
+            return MultiplateDecimalSets(amountSet, amountTwoSet);
+        }
+
+        public static ulong Multiply(this string amount, ulong amountTwo)
+        {
+            var amountSet = new DecimalSet(amount);
+            var amountTwoSet = new DecimalSet(amountTwo.ToDecimal());
+
+            return MultiplateDecimalSets(amountSet, amountTwoSet);
+        }
+
+        public static ulong Multiply(this ulong amount, string amountTwo)
+        {
+            var amountSet = new DecimalSet(amount.ToDecimal());
+            var amountTwoSet = new DecimalSet(amountTwo);
+
+            return MultiplateDecimalSets(amountSet, amountTwoSet);
+        }
+
+        public static ulong Multiply(this ulong amount, ulong amountTwo)
+        {
+            var amountSet = new DecimalSet(amount.ToDecimal());
+            var amountTwoSet = new DecimalSet(amountTwo.ToDecimal());
+
+            return MultiplateDecimalSets(amountSet, amountTwoSet);
+        }
+
+        private static ulong MultiplateDecimalSets(DecimalSet amountSet, DecimalSet amountTwoSet)
+        {
             ulong fullInt = amountSet.Integer * amountTwoSet.Integer * Constants.OneFullCoinInStratoshis;
             ulong amountMath = amountSet.Integer * amountTwoSet.Fractional;
             ulong amountTwoMath = amountTwoSet.Integer * amountSet.Fractional;
