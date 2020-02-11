@@ -17,30 +17,16 @@ Stratoshi s5 = s4.ToStratoshis();
 Strat s6 = s5.ToStrats();
 ```
 
-### Addition
+### Arithmetic
 
 ```csharp
 Stratoshi s7 = s1 + s2;
-```
-
-### Subtraction
-
-```csharp
 Stratoshi s8 = s1 - s2;
-```
 
-### Multiplication
-
-```csharp
 var x = 10;
 var y = "4.05";
 Stratoshi s9 = s1 * x;
 Strat s10 = s2 * y;
-```
-
-### Division
-
-```csharp
 Stratoshi s11 = s1 / x;
 Strat s12 = s2 / y;
 ```

@@ -1,9 +1,12 @@
 ﻿namespace StratisSmartMath
 {
+    /// <summary>
+    /// CONCEPT - Represents a single token
+    /// </summary>
     public struct Strat
     {
-        private const ulong StratoshisPerStrat = 100_000_000;
-        private const int MAX_DP = 8;
+        private const ulong _stratoshisPerStrat = 100_000_000;
+        private const int _maxDecimials = 8;
 
         readonly Stratoshi _value;
 
@@ -54,8 +57,11 @@
 
         public static bool operator <=(Strat s1, Stratoshi s2) => s1._value <= s2;
 
-        public Stratoshi ToStratoshis() => _value;
-
+        /// <summary>
+        /// Parses a token amount string
+        /// </summary>
+        /// <param name="value">String representation of the value</param>
+        /// <returns>The Strat value</returns>
         public static Strat Parse(string value)
         {
             Stratoshi integerAmount = 0;
@@ -78,25 +84,32 @@
             return new Strat(integerAmount + fractionalAmount);
         }
 
-        public override string ToString()
-        {
-            var paddedValue = _value.ToString().PadLeft(MAX_DP + 1, '0');
-            return paddedValue.Insert(paddedValue.Length - MAX_DP, ".");
-        }
-
         private static Stratoshi ParseIntegerDigits(string value)
         {
-            return ulong.Parse(value) * StratoshisPerStrat;
+            return ulong.Parse(value) * _stratoshisPerStrat;
         }
 
         private static Stratoshi ParseFractionalDigits(string value)
         {
-            return ulong.Parse(value.PadRight(MAX_DP, '0'));
+            return ulong.Parse(value.PadRight(_maxDecimials, '0'));
         }
 
+        public Stratoshi ToStratoshis() => _value;
+
+        /// <summary>
+        /// Returns the token value as a string, in the format x.xxxxxxxx
+        /// </summary>
+        /// <returns>The string representation</returns>
+        public override string ToString()
+        {
+            var paddedValue = _value.ToString().PadLeft(_maxDecimials + 1, '0');
+            return paddedValue.Insert(paddedValue.Length - _maxDecimials, ".");
+        }
+
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj is ulong || obj is Stratoshi || obj is Strat)
+            if (obj is Stratoshi || obj is Strat)
             {
                 return _value.Equals((Stratoshi)obj);
             }
@@ -104,6 +117,7 @@
             return false;
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return -1939223833 + _value.GetHashCode();

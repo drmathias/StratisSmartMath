@@ -1,7 +1,7 @@
 ﻿namespace StratisSmartMath
 {
     /// <summary>
-    /// CONCEPT
+    /// CONCEPT - Represents a one-hundred-millionth of a token
     /// </summary>
     public struct Stratoshi
     {
@@ -62,7 +62,7 @@
                 fractionalPart = ulong.Parse(fractionalPartString);
             }
 
-            // TODO: division results in a decimal
+            // TODO: what if division results in a decimal?
             return s1 * integerPart + new Stratoshi(s1._amount * fractionalPart / divisor);
         }
 
@@ -98,14 +98,16 @@
 
         public Strat ToStrats() => new Strat(this);
 
+        /// <inheritdoc/>
         public override string ToString()
         {
             return _amount.ToString();
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj is ulong || obj is Stratoshi || obj is Strat)
+            if (obj is Stratoshi || obj is Strat)
             {
                 return _amount == ((Stratoshi)obj)._amount;
             }
@@ -113,6 +115,7 @@
             return false;
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return 68920802 + _amount.GetHashCode();
