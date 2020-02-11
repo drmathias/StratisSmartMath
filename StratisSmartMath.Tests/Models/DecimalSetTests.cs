@@ -1,7 +1,7 @@
 using Xunit;
 using StratisSmartMath;
 
-namespace StratisSmartMathTests.Models
+namespace StratisSmartMath.Tests.Models
 {
     public class DecimalSetTests
     {

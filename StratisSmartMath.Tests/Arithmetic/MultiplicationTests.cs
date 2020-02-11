@@ -1,7 +1,7 @@
 ﻿using Xunit;
 using StratisSmartMath;
 
-namespace StratisSmartMathTests.Arithmetic
+namespace StratisSmartMath.Tests.Arithmetic
 {
     public class MultiplicationTests
     {

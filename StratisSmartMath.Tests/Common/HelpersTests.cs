@@ -1,7 +1,7 @@
 ﻿using Xunit;
 using StratisSmartMath;
 
-namespace StratisSmartMathTests.Common
+namespace StratisSmartMath.Tests.Common
 {
     public class HelpersTests
     {

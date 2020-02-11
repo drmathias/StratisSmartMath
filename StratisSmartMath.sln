@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StratisSmartMath", "StratisSmartMath\StratisSmartMath.csproj", "{57F121F2-5C4B-4752-9152-153962E318DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StratisSmartMathTests", "StratisSmartMath.Tests\StratisSmartMathTests.csproj", "{0D3F99F9-1589-4E16-87E3-E92BA71F9390}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StratisSmartMath.Tests", "StratisSmartMath.Tests\StratisSmartMath.Tests.csproj", "{1A3A2B7C-1C5E-4FB0-81B6-7685D0D9A287}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +15,9 @@ Global
 		{57F121F2-5C4B-4752-9152-153962E318DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57F121F2-5C4B-4752-9152-153962E318DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57F121F2-5C4B-4752-9152-153962E318DB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D3F99F9-1589-4E16-87E3-E92BA71F9390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D3F99F9-1589-4E16-87E3-E92BA71F9390}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D3F99F9-1589-4E16-87E3-E92BA71F9390}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D3F99F9-1589-4E16-87E3-E92BA71F9390}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A3A2B7C-1C5E-4FB0-81B6-7685D0D9A287}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A3A2B7C-1C5E-4FB0-81B6-7685D0D9A287}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A3A2B7C-1C5E-4FB0-81B6-7685D0D9A287}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A3A2B7C-1C5E-4FB0-81B6-7685D0D9A287}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
