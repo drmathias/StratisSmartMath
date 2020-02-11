@@ -2,23 +2,14 @@
 {
     public class DecimalSet
     {
-        private const int _maxDecimalLength = 8;
-
         public DecimalSet(string amount)
         {
             this.Decimal = amount;
 
-            var amountSet = amount.Split('.');
-            while (amountSet[1].Length < _maxDecimalLength)
-            {
-                amountSet[1] = $"{amountSet[1]}0";
-            }
+            string[] amountSet = PrepareAmountSet(amount);
 
-            ulong.TryParse(amountSet[0], out ulong amountInt);
-            ulong.TryParse(amountSet[1], out ulong amountFractional);
-
-            this.Integer = amountInt;
-            this.Fractional = amountFractional;
+            this.Integer = ParseAmount(amountSet[0]);
+            this.Fractional = ParseAmount(amountSet[1]);
         }
 
         public ulong Integer { get; set; }
@@ -26,5 +17,26 @@
         public ulong Fractional { get; set; }
 
         public string Decimal { get; set; }
+
+        #region Helpers
+        private string[] PrepareAmountSet(string amount)
+        {
+            string[] amountSet = amount.Split(Constants.Decimal);
+
+            while (amountSet[1].Length < Constants.MaxDecimalLength)
+            {
+                amountSet[1] = $"{amountSet[1]}0";
+            }
+
+            return amountSet;
+        }
+
+        private ulong ParseAmount(string amount)
+        {
+            ulong.TryParse(amount, out ulong convertedAmount);
+
+            return convertedAmount;
+        }
+        #endregion
     }
 }

@@ -1,13 +1,7 @@
-﻿using System;
-
-namespace StratisSmartMath
+﻿namespace StratisSmartMath
 {
     public class Decimals : IDecimals
     {
-        private const char dot = '.';
-        private const int maxDecimalLength = 8;
-        private const ulong OneFullCoinInStratoshis = 100_000_000;
-
         /// <summary>
         /// Add two decimal strings together.
         /// </summary>
@@ -36,10 +30,10 @@ namespace StratisSmartMath
         {
             string delimiterString = "1";
 
-            string[] splitAmount = amount.Split(dot);
+            string[] splitAmount = amount.Split(Constants.Decimal);
             int fractionalLength = splitAmount[1].Length;
 
-            for (int i = fractionalLength; i < maxDecimalLength; i++)
+            for (int i = fractionalLength; i < Constants.MaxDecimalLength; i++)
             {
                 delimiterString = $"{delimiterString}0";
             }
@@ -77,10 +71,10 @@ namespace StratisSmartMath
             var amountSet = new DecimalSet(amount);
             var amountTwoSet = new DecimalSet(amountTwo);
 
-            ulong fullInt = amountSet.Integer * amountTwoSet.Integer * OneFullCoinInStratoshis;
+            ulong fullInt = amountSet.Integer * amountTwoSet.Integer * Constants.OneFullCoinInStratoshis;
             ulong amountMath = amountSet.Integer * amountTwoSet.Fractional;
             ulong amountTwoMath = amountTwoSet.Integer * amountSet.Fractional;
-            ulong fractionalAmount = (amountSet.Fractional * amountTwoSet.Fractional) / OneFullCoinInStratoshis;
+            ulong fractionalAmount = (amountSet.Fractional * amountTwoSet.Fractional) / Constants.OneFullCoinInStratoshis;
 
             var stratoshiValue = fullInt + amountMath + amountTwoMath + fractionalAmount;
             var decimalValue = stratoshiValue.ToDecimal();
