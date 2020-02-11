@@ -1,5 +1,4 @@
 using Xunit;
-using StratisSmartMath;
 
 namespace StratisSmartMath.Tests.Models
 {
