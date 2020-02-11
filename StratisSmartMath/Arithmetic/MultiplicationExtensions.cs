@@ -7,7 +7,7 @@
         /// </summary>
         /// <param name="amount">The first decimal to be multiplied.</param>
         /// <param name="amountTwo">The second decimal to be multiplied.</param>
-        /// <returns>EquationResult model with decimal and satoshi solution values.</returns>
+        /// <returns>Ulong satoshi solution value.</returns>
         public static ulong Multiply(this string amount, string amountTwo)
         {
             var amountSet = new DecimalSet(amount);
