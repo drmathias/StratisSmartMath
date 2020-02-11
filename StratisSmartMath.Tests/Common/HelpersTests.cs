@@ -13,11 +13,11 @@ namespace StratisSmartMath.Tests.Common
         [InlineData("1.001", 100_000)]
         [InlineData("1.01", 1_000_000)]
         [InlineData("1.1", 10_000_000)]
-        public void GetDelimiter_FromDecimal(string amount, ulong expectedDelimiter)
+        public void GetDelimiter_FromDecimal(string amount, ulong expected)
         {
-            var formattedDelimiter = amount.Delimiter();
+            var delimiter = amount.Delimiter();
 
-            Assert.Equal(expectedDelimiter, formattedDelimiter);
+            Assert.Equal(expected, delimiter);
         }
     }
 }

@@ -5,47 +5,71 @@
         /// <summary>
         /// Multiply two decimal strings and return the value.
         /// </summary>
-        /// <param name="amount">The first decimal to be multiplied.</param>
-        /// <param name="amountTwo">The second decimal to be multiplied.</param>
+        /// <param name="first">The first decimal to be multiplied.</param>
+        /// <param name="second">The second decimal to be multiplied.</param>
         /// <returns>Ulong satoshi solution value.</returns>
-        public static ulong Multiply(this string amount, string amountTwo)
+        public static ulong Multiply(this string first, string second)
         {
-            var amountSet = new DecimalSet(amount);
-            var amountTwoSet = new DecimalSet(amountTwo);
+            var firstDecimal = new DecimalModel(first);
+            var secondDecimal = new DecimalModel(second);
 
-            return MultiplateDecimalSets(amountSet, amountTwoSet);
+            return MultiplyDecimalSets(firstDecimal, secondDecimal);
         }
 
-        public static ulong Multiply(this string amount, ulong amountTwo)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        public static ulong Multiply(this string first, ulong second)
         {
-            var amountSet = new DecimalSet(amount);
-            var amountTwoSet = new DecimalSet(amountTwo.ToDecimal());
+            var firstDecimal = new DecimalModel(first);
+            var secondDecimal = new DecimalModel(second.ToDecimal());
 
-            return MultiplateDecimalSets(amountSet, amountTwoSet);
+            return MultiplyDecimalSets(firstDecimal, secondDecimal);
         }
 
-        public static ulong Multiply(this ulong amount, string amountTwo)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        public static ulong Multiply(this ulong first, string second)
         {
-            var amountSet = new DecimalSet(amount.ToDecimal());
-            var amountTwoSet = new DecimalSet(amountTwo);
+            var firstDecimal = new DecimalModel(first.ToDecimal());
+            var secondDecimal = new DecimalModel(second);
 
-            return MultiplateDecimalSets(amountSet, amountTwoSet);
+            return MultiplyDecimalSets(firstDecimal, secondDecimal);
         }
 
-        public static ulong Multiply(this ulong amount, ulong amountTwo)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        public static ulong Multiply(this ulong first, ulong second)
         {
-            var amountSet = new DecimalSet(amount.ToDecimal());
-            var amountTwoSet = new DecimalSet(amountTwo.ToDecimal());
+            var firstDecimal = new DecimalModel(first.ToDecimal());
+            var secondDecimal = new DecimalModel(second.ToDecimal());
 
-            return MultiplateDecimalSets(amountSet, amountTwoSet);
+            return MultiplyDecimalSets(firstDecimal, secondDecimal);
         }
 
-        private static ulong MultiplateDecimalSets(DecimalSet amountSet, DecimalSet amountTwoSet)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        private static ulong MultiplyDecimalSets(DecimalModel first, DecimalModel second)
         {
-            ulong fullInt = amountSet.Integer * amountTwoSet.Integer * Constants.OneFullCoinInStratoshis;
-            ulong amountMath = amountSet.Integer * amountTwoSet.Fractional;
-            ulong amountTwoMath = amountTwoSet.Integer * amountSet.Fractional;
-            ulong fractionalAmount = (amountSet.Fractional * amountTwoSet.Fractional) / Constants.OneFullCoinInStratoshis;
+            ulong fullInt = first.Integer * second.Integer * Constants.OneFullCoinInStratoshis;
+            ulong amountMath = first.Integer * second.Fractional;
+            ulong amountTwoMath = second.Integer * first.Fractional;
+            ulong fractionalAmount = first.Fractional * second.Fractional / Constants.OneFullCoinInStratoshis;
 
             return fullInt + amountMath + amountTwoMath + fractionalAmount;
         }

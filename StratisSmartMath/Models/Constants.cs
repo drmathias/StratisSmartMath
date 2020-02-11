@@ -1,5 +1,8 @@
 ﻿namespace StratisSmartMath
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class Constants
     {
         public const int MaxDecimalLength = 8;

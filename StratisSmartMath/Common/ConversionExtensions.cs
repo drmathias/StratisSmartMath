@@ -9,11 +9,11 @@
         /// <returns>Stratoshi amount equal to the provided decimal string.</returns>
         public static ulong ToStratoshis(this string amount)
         {
-            var set = new DecimalSet(amount);
+            var decimalModel = new DecimalModel(amount);
 
-            ulong integerAmount = set.Integer * Constants.OneFullCoinInStratoshis;
+            ulong integerAmount = decimalModel.Integer * Constants.OneFullCoinInStratoshis;
 
-            return integerAmount + set.Fractional;
+            return integerAmount + decimalModel.Fractional;
         }
 
         /// <summary>

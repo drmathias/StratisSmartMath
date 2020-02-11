@@ -10,11 +10,11 @@ namespace StratisSmartMath.Tests.Arithmetic
         [InlineData("1.00", "0.01", 1_000_000)]
         [InlineData("109873.1239", "0.0887", 974_574_608_993)]
         [InlineData("200.01234567", "14.12345678", 282_486_571_953)]
-        public void CanMultiply_TwoDecimalNumbers(string amountOne, string amountTwo, ulong expectedCost)
+        public void CanMultiply_TwoDecimalNumbers(string first, string second, ulong expected)
         {
-            var cost = amountOne.Multiply(amountTwo);
+            var cost = first.Multiply(second);
 
-            Assert.Equal(expectedCost, cost);
+            Assert.Equal(expected, cost);
         }
 
         [Theory]
@@ -23,11 +23,11 @@ namespace StratisSmartMath.Tests.Arithmetic
         [InlineData(100_000_000, "0.01", 1_000_000)]
         [InlineData(10_987_312_390_000, "0.0887", 974_574_608_993)]
         [InlineData(20_001_234_567, "14.12345678", 282_486_571_953)]
-        public void CanMultiplyA_StratoshiValue_AndA_Decimal(ulong amountOne, string amountTwo, ulong expectedCost)
+        public void CanMultiplyA_StratoshiValue_AndA_Decimal(ulong first, string second, ulong expected)
         {
-            var cost = amountOne.Multiply(amountTwo);
+            var cost = first.Multiply(second);
 
-            Assert.Equal(expectedCost, cost);
+            Assert.Equal(expected, cost);
         }
 
         [Theory]
@@ -36,11 +36,11 @@ namespace StratisSmartMath.Tests.Arithmetic
         [InlineData("1.00", 1_000_000, 1_000_000)]
         [InlineData("109873.1239", 8_870_000, 974_574_608_993)]
         [InlineData("200.01234567", 1_412_345_678, 282_486_571_953)]
-        public void CanMultiply_ADecimalAmount_And_StratoshiAmount(string amountOne, ulong amountTwo, ulong expectedCost)
+        public void CanMultiply_ADecimalAmount_And_StratoshiAmount(string first, ulong second, ulong expected)
         {
-            var cost = amountOne.Multiply(amountTwo);
+            var cost = first.Multiply(second);
 
-            Assert.Equal(expectedCost, cost);
+            Assert.Equal(expected, cost);
         }
 
         [Theory]
@@ -49,11 +49,11 @@ namespace StratisSmartMath.Tests.Arithmetic
         [InlineData(100_000_000, 1_000_000, 1_000_000)]
         [InlineData(10_987_312_390_000, 8_870_000, 974_574_608_993)]
         [InlineData(20_001_234_567, 1_412_345_678, 282_486_571_953)]
-        public void CanMultiply_TwoStratoshiAmounts(ulong amountOne, ulong amountTwo, ulong expectedCost)
+        public void CanMultiply_TwoStratoshiAmounts(ulong first, ulong second, ulong expected)
         {
-            var cost = amountOne.Multiply(amountTwo);
+            var cost = first.Multiply(second);
 
-            Assert.Equal(expectedCost, cost);
+            Assert.Equal(expected, cost);
         }
     }
 }

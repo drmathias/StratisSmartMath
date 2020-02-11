@@ -20,9 +20,9 @@
                 delimiterString = $"{delimiterString}0";
             }
 
-            ulong.TryParse(delimiterString, out ulong formattedDelimiter);
+            ulong.TryParse(delimiterString, out ulong delimiter);
 
-            return formattedDelimiter;
+            return delimiter;
         }
     }
 }

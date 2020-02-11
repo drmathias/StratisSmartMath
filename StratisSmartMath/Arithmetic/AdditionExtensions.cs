@@ -5,37 +5,37 @@
         /// <summary>
         /// Add two decimal string values together.
         /// </summary>
-        /// <param name="amountOne">First decimal string to be added.</param>
-        /// <param name="amountTwo">Second decimal string to be added to the first.</param>
+        /// <param name="first">First decimal string to be added.</param>
+        /// <param name="second">Second decimal string to be added to the first.</param>
         /// <returns>Ulong of both values added together.</returns>
-        public static ulong Add(this string amountOne, string amountTwo)
-            => amountOne.ToStratoshis() + amountTwo.ToStratoshis();
+        public static ulong Add(this string first, string second)
+            => first.ToStratoshis() + second.ToStratoshis();
 
         /// <summary>
         /// Adds a decimal string value with another value in stratoshis.
         /// </summary>
-        /// <param name="amountOne">Decimal string value.</param>
-        /// <param name="amountTwo">Amount in stratoshis to add to the decimal string.</param>
+        /// <param name="first">Decimal string value.</param>
+        /// <param name="second">Amount in stratoshis to add to the decimal string.</param>
         /// <returns>Ulong of both values added together.</returns>
-        public static ulong Add(this string amountOne, ulong amountTwo)
-            => amountOne.ToStratoshis() + amountTwo;
+        public static ulong Add(this string first, ulong second)
+            => first.ToStratoshis() + second;
 
         /// <summary>
         /// Adds to values in stratoshis together.
         /// </summary>
-        /// <param name="amountOne">The first value in stratoshis.</param>
-        /// <param name="amountTwo">The second value in stratoshis.</param>
+        /// <param name="first">The first value in stratoshis.</param>
+        /// <param name="second">The second value in stratoshis.</param>
         /// <returns>Ulong of both values added together.</returns>
-        public static ulong Add(this ulong amountOne, ulong amountTwo)
-            => amountOne + amountTwo;
+        public static ulong Add(this ulong first, ulong second)
+            => first + second;
 
         /// <summary>
         /// Adds a value in stratoshies with a decimal string value.
         /// </summary>
-        /// <param name="amountOne"></param>
-        /// <param name="amountTwo"></param>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
         /// <returns>Ulong of both values added together.</returns>
-        public static ulong Add(this ulong amountOne, string amountTwo)
-            => amountOne + amountTwo.ToStratoshis();
+        public static ulong Add(this ulong first, string second)
+            => first + second.ToStratoshis();
     }
 }

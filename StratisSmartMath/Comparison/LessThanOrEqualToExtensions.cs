@@ -2,16 +2,40 @@
 {
     public static class LessThanOrEqualToExtensions
     {
-        public static bool IsLessThanOrEqualTo(this string amountOne, string amountTwo)
-            => amountOne.ToStratoshis() <= amountTwo.ToStratoshis();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        public static bool IsLessThanOrEqualTo(this string first, string second)
+            => first.ToStratoshis() <= second.ToStratoshis();
 
-        public static bool IsLessThanOrEqualTo(this string amountOne, ulong amountTwo)
-            => amountOne.ToStratoshis() <= amountTwo;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        public static bool IsLessThanOrEqualTo(this string first, ulong second)
+            => first.ToStratoshis() <= second;
 
-        public static bool IsLessThanOrEqualTo(this ulong amountOne, string amountTwo)
-            => amountOne <= amountTwo.ToStratoshis();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        public static bool IsLessThanOrEqualTo(this ulong first, string second)
+            => first <= second.ToStratoshis();
 
-        public static bool IsLessThanOrEqualTo(this ulong amountOne, ulong amountTwo)
-            => amountOne <= amountTwo;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        public static bool IsLessThanOrEqualTo(this ulong first, ulong second)
+            => first <= second;
     }
 }

@@ -14,11 +14,11 @@ namespace StratisSmartMath.Tests.Common
         [InlineData("1.001", 100_100_000)]
         [InlineData("1.01", 101_000_000)]
         [InlineData("1.1", 110_000_000)]
-        public void Convert_ToStratoshis_FromDecimal(string amount, ulong expectedCost)
+        public void Convert_ToStratoshis_FromDecimal(string amount, ulong expected)
         {
             var cost = amount.ToStratoshis();
 
-            Assert.Equal(expectedCost, cost);
+            Assert.Equal(expected, cost);
         }
 
         [Theory]
@@ -26,11 +26,11 @@ namespace StratisSmartMath.Tests.Common
         [InlineData(10_000_001, "0.10000001")]
         [InlineData(12345, "0.00012345")]
         [InlineData(987_654_321, "9.87654321")]
-        public void Convert_ToDecimal_FromStratoshis(ulong amount, string expectedCost)
+        public void Convert_ToDecimal_FromStratoshis(ulong amount, string expected)
         {
             var cost = amount.ToDecimal();
 
-            Assert.Equal(expectedCost, cost);
+            Assert.Equal(expected, cost);
         }
     }
 }

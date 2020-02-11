@@ -2,16 +2,40 @@
 {
     public static class GreaterThanExtensions
     {
-        public static bool IsGreaterThan(this string amountOne, string amountTwo)
-            => amountOne.ToStratoshis() > amountTwo.ToStratoshis();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        public static bool IsGreaterThan(this string first, string second)
+            => first.ToStratoshis() > second.ToStratoshis();
 
-        public static bool IsGreaterThan(this string amountOne, ulong amountTwo)
-            => amountOne.ToStratoshis() > amountTwo;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        public static bool IsGreaterThan(this string first, ulong second)
+            => first.ToStratoshis() > second;
 
-        public static bool IsGreaterThan(this ulong amountOne, string amountTwo)
-            => amountOne > amountTwo.ToStratoshis();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        public static bool IsGreaterThan(this ulong first, string second)
+            => first > second.ToStratoshis();
 
-        public static bool IsGreaterThan(this ulong amountOne, ulong amountTwo)
-            => amountOne > amountTwo;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        public static bool IsGreaterThan(this ulong first, ulong second)
+            => first > second;
     }
 }
