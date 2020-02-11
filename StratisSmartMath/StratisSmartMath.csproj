@@ -6,5 +6,12 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Arithmetic\" />
+    <Folder Include="Common\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Decimals.cs" />
+    <Compile Remove="IDecimals.cs" />
+    <Compile Remove="Models\EquationResult.cs" />
   </ItemGroup>
 </Project>

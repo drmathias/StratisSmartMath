@@ -16,4 +16,9 @@
   <ItemGroup>
     <ProjectReference Include="..\StratisSmartMath\StratisSmartMath.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Arithmetic\" />
+    <Folder Include="Common\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
 </Project>

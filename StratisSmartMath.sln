@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StratisSmartMath", "StratisSmartMath\StratisSmartMath.csproj", "{57F121F2-5C4B-4752-9152-153962E318DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StratisSmartMath.Tests", "StratisSmartMath.Tests\StratisSmartMath.Tests.csproj", "{0D3F99F9-1589-4E16-87E3-E92BA71F9390}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StratisSmartMathTests", "StratisSmartMath.Tests\StratisSmartMathTests.csproj", "{0D3F99F9-1589-4E16-87E3-E92BA71F9390}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
