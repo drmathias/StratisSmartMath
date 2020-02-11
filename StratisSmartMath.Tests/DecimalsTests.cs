@@ -37,7 +37,7 @@ namespace StratisSmartMath.Tests
         [InlineData("1.1", 110_000_000)]
         public void Convert_ToStratoshis_FromDecimal(string amount, ulong expectedCost)
         {
-            var cost = _decimals.Convert(amount);
+            var cost = amount.ToStratoshis();
 
             Assert.Equal(expectedCost, cost);
         }
@@ -49,7 +49,7 @@ namespace StratisSmartMath.Tests
         [InlineData(987_654_321, "9.87654321")]
         public void Convert_ToDecimal_FromStratoshis(ulong amount, string expectedCost)
         {
-            var cost = _decimals.Convert(amount);
+            var cost = amount.ToDecimal();
 
             Assert.Equal(expectedCost, cost);
         }

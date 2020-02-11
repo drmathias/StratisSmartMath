@@ -1,4 +1,6 @@
-﻿namespace StratisSmartMath
+﻿using System;
+
+namespace StratisSmartMath
 {
     public class Decimals : IDecimals
     {
@@ -14,50 +16,14 @@
         /// <returns>Decimal string of both amounts added together.</returns>
         public EquationResult Add(string amountOne, string amountTwo)
         {
-            ulong amountOneStratoshis = Convert(amountOne);
-            ulong amountTwoStratoshis = Convert(amountTwo);
+            ulong amountOneStratoshis = amountOne.ToStratoshis();
+            ulong amountTwoStratoshis = amountTwo.ToStratoshis();
 
             ulong finalAmountStratoshis = amountOneStratoshis + amountTwoStratoshis;
-            string finalAmountDecimal = Convert(finalAmountStratoshis);
+            string finalAmountDecimal = finalAmountStratoshis.ToDecimal();
 
             return new EquationResult(finalAmountDecimal, finalAmountStratoshis);
 
-        }
-
-        /// <summary>
-        /// Convert to a decimal string based on stratoshi amount provided.
-        /// </summary>
-        /// <param name="amount">Amount in stratoshis to convert to a decimal string.</param>
-        /// <returns>The a decimal string equal to the amount of stratoshis provided.</returns>
-        public string Convert(ulong amount)
-        {
-            string amountString = amount.ToString();
-
-            if (amountString.Length > maxDecimalLength)
-            {
-                return amountString.Insert(amountString.Length - maxDecimalLength, ".");
-            }
-
-            while (amountString.Length < maxDecimalLength)
-            {
-                amountString = $"0{amountString}";
-            }
-
-            return $"0.{amountString}";
-        }
-
-        /// <summary>
-        /// Convert a decimal string to the equivalent amount in stratoshis
-        /// </summary>
-        /// <param name="amount">Amount in string decimal format to convert to stratoshis.</param>
-        /// <returns>Stratoshi amount equal to the provided decimal string.</returns>
-        public ulong Convert(string amount)
-        {
-            var set = new DecimalSet(amount);
-
-            ulong integerAmount = set.Integer * OneFullCoinInStratoshis;
-
-            return integerAmount + set.Fractional;
         }
 
         /// <summary>
@@ -91,11 +57,11 @@
         /// <returns>Decimal string result of amountOne - amountTwo</returns>
         public EquationResult Subtract(string amountOne, string amountTwo)
         {
-            ulong amountOneStratoshis = Convert(amountOne);
-            ulong amountTwoStratoshis = Convert(amountTwo);
+            ulong amountOneStratoshis = amountOne.ToStratoshis();
+            ulong amountTwoStratoshis = amountTwo.ToStratoshis();
 
             ulong finalAmountStratoshis = amountOneStratoshis - amountTwoStratoshis;
-            string finalAmountDecimal = Convert(finalAmountStratoshis);
+            string finalAmountDecimal = finalAmountStratoshis.ToDecimal();
 
             return new EquationResult(finalAmountDecimal, finalAmountStratoshis);
         }
@@ -117,7 +83,7 @@
             ulong fractionalAmount = (amountSet.Fractional * amountTwoSet.Fractional) / OneFullCoinInStratoshis;
 
             var stratoshiValue = fullInt + amountMath + amountTwoMath + fractionalAmount;
-            var decimalValue = Convert(stratoshiValue);
+            var decimalValue = stratoshiValue.ToDecimal();
 
             return new EquationResult(decimalValue, stratoshiValue);
         }
