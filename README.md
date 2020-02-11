@@ -2,123 +2,54 @@
 
 Math library for operations using decimals.
 
-## Conversions
+## Concept
 
-Math requires going back and forth between a decimal string value and a ulong value in stratoshis. Using extension methods on `string` or `ulong` types, you can go back and forth between values.
+The concept (unfinished) provides an interface where operations can be done more naturally.
 
-### To Stratoshis From Decimal
+### Type convertions
 
-```C#
-string decimalAmount = "1.234";
-
-
-ulong decimalAmountInStratoshis = decimalAmount.ToStratoshis();
-// decimalAmountInStratoshis = 123_400_000
+```csharp
+Stratoshi s1 = 1_250_000_000;
+Strat s2 = Strat.Parse("1.25");
+Stratoshi s3 = (Stratoshi)s2;
+Strat s4 = (Strat)s3;
+Stratoshi s5 = s4.ToStratoshis();
+Strat s6 = s5.ToStrats();
 ```
-
-### To Decimal From Stratoshis
-
-```C#
-ulong stratoshiAmount = 500_000_000;
-
-string stratoshiAmountAsDecimal = stratoshiAmount.ToDecimal();
-// stratoshiAmountAsDecimal = "5.00000000"
-```
-
-## Arithmetic
-
-Operations include Addition, Subtraction, Multiplication and hopefully soon Division. All operations are extension methods on `string` or `ulong` types.
 
 ### Addition
 
-```C#
-ulong amount = "1.234".Add("0.001");
-// amount = 123_500_000
-
-// Chain multiple together
-ulong chained = "1.234".Add("0.001").Add("0.0002");
-// chained = 123_520_000
+```csharp
+Stratoshi s7 = s1 + s2;
 ```
 
 ### Subtraction
 
-```C#
-ulong amount = "1.234".Subtract("0.001");
-// amount = 123_300_000
-
-// Chain multiple together
-ulong chained = "1.234".Subtract("0.001").Subtract("0.0002");
-// chained = 123_280_000
+```csharp
+Stratoshi s8 = s1 - s2;
 ```
 
 ### Multiplication
 
-```C#
-ulong amount = "1.234".Multiply("0.001");
-// amount = 123_400
-
-// Chain multiple together
-ulong chained = "1.234".Multiply("0.001").Multiply("2");
-// chained = 246_800
+```csharp
+var x = 10;
+var y = "4.05";
+Stratoshi s9 = s1 * x;
+Strat s10 = s2 * y;
 ```
 
-## Comparisons
+### Division
 
-Compare two decimals or a mix of decimals and values in stratoshis. Operations include LessThan, LessThanOrEqualTo, GreaterThan, GreaterThanOrEqualTo, and EqualTo and return a boolean value.
-
-### Less Than
-
-```C#
-string first = "1.234";
-ulong second = 140_000_123;
-
-Assert(first.IsLessThan(second)) // true
-Assert(second.IsLessThan(first)) // false
+```csharp
+Stratoshi s11 = s1 / x;
+Strat s12 = s2 / y;
 ```
 
-### Less Than Or Equal To
+### Comparison
 
-```C#
-string first = "1.234";
-ulong second = 140_000_123;
-ulong third = 123_400_000;
-
-Assert(first.IsLessThanOrEqualTo(second)) // true
-Assert(second.IsLessThanOrEqualTo(first)) // false
-Assert(third.IsLessThanOrEqualTo(first)) // true
-```
-
-### Greater Than
-
-```C#
-string first = "1.234";
-ulong second = 140_000_123;
-
-Assert(first.IsGreaterThan(second)) // false
-Assert(second.IsGreaterThan(first)) // true
-```
-
-### Greater Than Or Equal To
-
-```C#
-string first = "1.234";
-ulong second = 140_000_123;
-ulong third = 123_400_000;
-
-Assert(first.IsGreaterThanOrEqualTo(second)) // false
-Assert(second.IsGreaterThanOrEqualTo(first)) // true
-Assert(third.IsGreaterThanOrEqualTo(first)) // true
-```
-
-### Greater Than
-
-```C#
-string first = "1.234";
-ulong second = 140_000_123;
-ulong third = 123_400_000;
-
-Assert(first.IsEqualTo(second)) // false
-Assert(second.IsEqualTo(first)) // false
-Assert(third.IsEqualTo(first)) // true
-
+```csharp
+var greaterThan = s11 > s12;
+var greaterEqualThan = s11 >= s12;
+var lessThan = s11 < s12;
+var lessEqualThan = s11 <= s12;
 ```
